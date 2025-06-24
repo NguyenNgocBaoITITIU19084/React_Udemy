@@ -3,11 +3,15 @@ import { useState } from "react";
 import Player from "./components/Player";
 import GameBoard from "./components/GameBoard";
 import Log from "./components/Log";
+import GameOver from "./components/GameOver";
+
 import { WINNING_COMBINATIONS } from "./data/winning-combination";
+
+const PLAYER = { X: "Player 1", O: "Player 2" };
 
 // this is the initial game board state
 // it is a 3x3 grid with all cells initialized to null
-const initialGameBoard = [
+const INITIAL_GAME_BOARD = [
   [null, null, null],
   [null, null, null],
   [null, null, null],
@@ -22,25 +26,7 @@ function deriveActivePlayer(gameTurns) {
   return currentPlayer;
 }
 
-function App() {
-  const [gameTurns, setGameTurns] = useState([]);
-  // const [activePlayer, setActivePlayer] = useState("X");
-  const activePlayer = deriveActivePlayer(gameTurns);
-
-  // gán các giá trị mà người chơi đã chọn vào gameBoard
-  let gameBoard = initialGameBoard;
-
-  for (const turn of gameTurns) {
-    const { square, player } = turn;
-    const { row, col } = square;
-
-    if (gameBoard[row][col] === null) {
-      gameBoard[row][col] = player;
-    }
-  }
-
-  // checking condition for winning combinations
-  // This is a placeholder for the logic to check if a player has won
+function deriveWinner(WINNING_COMBINATIONS, gameBoard, players) {
   let winner;
 
   for (const winningCombination of WINNING_COMBINATIONS) {
@@ -56,14 +42,44 @@ function App() {
       firstSquare === sendSquare &&
       firstSquare === thirdSquare
     ) {
-      winner = firstSquare;
+      winner = players[firstSquare];
     }
   }
+  return winner;
+}
 
+function deriveGameBoard(initialGameBoard, gameTurns) {
+  let gameBoard = [...initialGameBoard.map((innerArray) => [...innerArray])];
+
+  for (const turn of gameTurns) {
+    const { square, player } = turn;
+    const { row, col } = square;
+
+    if (gameBoard[row][col] === null) {
+      gameBoard[row][col] = player;
+    }
+  }
+  return gameBoard;
+}
+
+function App() {
+  const [players, setPlayers] = useState(PLAYER);
+  const [gameTurns, setGameTurns] = useState([]);
+  const activePlayer = deriveActivePlayer(gameTurns);
+
+  // gán các giá trị mà người chơi đã chọn vào gameBoard
+  const gameBoard = deriveGameBoard(INITIAL_GAME_BOARD, gameTurns);
+
+  // checking condition for winning combinations
+  // This is a placeholder for the logic to check if a player has won
+  const winner = deriveWinner(WINNING_COMBINATIONS, gameBoard, players);
+
+  // checking match is draw
+  const isDraw = gameTurns.length === 9 && !winner;
+
+  // function to handle the active player and update game turns
+  // This function is called when a player selects a square on the game board
   function handleActivePlayer(rowIndex, colIndex) {
-    // setActivePlayer((prevActivePlayer) =>
-    //   prevActivePlayer === "X" ? "O" : "X"
-    // );
     setGameTurns((prevTurns) => {
       const currentPlayer = deriveActivePlayer(prevTurns);
 
@@ -75,14 +91,39 @@ function App() {
     });
   }
 
+  // function to handle game restart
+  function handleRestart() {
+    setGameTurns([]);
+  }
+
+  // function to handle player name change
+  function handlePlayerNameChange(playerSymbol, newName) {
+    setPlayers((prevPlayers) => ({
+      ...prevPlayers,
+      [playerSymbol]: newName,
+    }));
+  }
+
   return (
     <>
       <div id="game-container">
         <ol id="players" className="highlight-player">
-          <Player name="Player 1" symbol="X" isActive={activePlayer === "X"} />
-          <Player name="Player 2" symbol="O" isActive={activePlayer === "O"} />
+          <Player
+            name={PLAYER.X}
+            symbol="X"
+            isActive={activePlayer === "X"}
+            onNameChange={handlePlayerNameChange}
+          />
+          <Player
+            name={PLAYER.O}
+            symbol="O"
+            isActive={activePlayer === "O"}
+            onNameChange={handlePlayerNameChange}
+          />
         </ol>
-        {winner && <p>you won, {winner}!</p>}
+        {(winner || isDraw) && (
+          <GameOver winner={winner} onRestart={handleRestart} />
+        )}
         <GameBoard
           onActivePlayer={handleActivePlayer}
           // activePlayer={currentPlayer}

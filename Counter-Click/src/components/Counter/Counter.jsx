@@ -28,7 +28,7 @@ export default function Counter({ initialCount }) {
   const initialCountIsPrime = useMemo(
     () => isPrime(initialCount),
     [initialCount]
-  );
+  );f
 
   const [counter, setCounter] = useState(initialCount);
 

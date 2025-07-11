@@ -1,23 +1,66 @@
+import { useState } from "react";
+import Input from "./Input";
+import {
+  isEmail,
+  isNotEmpty,
+  hasMinLength,
+  isEqualsToOtherValue,
+} from "../util/validation";
+import { useInput } from "../hooks/useInput";
+
 export default function Login() {
+  const {
+    value: emailValue,
+    handleEnteredValueBlur: handleEmailBlur,
+    handleEnteredValueChange: handleEmailChange,
+    hasError: hasEmailError,
+  } = useInput("", (value) => !isEmail(value) && isNotEmpty(value));
+
+  const {
+    value: passwordValue,
+    handleEnteredValueBlur: handlePasswordBlur,
+    handleEnteredValueChange: handlePasswordChange,
+    hasError: hasPasswordError,
+  } = useInput("", (value) => isNotEmpty(value) && !hasMinLength(value, 6));
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    console.log("submitted!", dataInput);
+  }
+
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <h2>Login</h2>
 
       <div className="control-row">
-        <div className="control no-margin">
-          <label htmlFor="email">Email</label>
-          <input id="email" type="email" name="email" />
-        </div>
+        <Input
+          label="email"
+          id="email"
+          type="email"
+          error={hasEmailError ? "Email is not valid" : ""}
+          name="email"
+          onBlur={handleEmailBlur}
+          onChange={handleEmailChange}
+          value={emailValue}
+        />
 
-        <div className="control no-margin">
-          <label htmlFor="password">Password</label>
-          <input id="password" type="password" name="password" />
-        </div>
+        <Input
+          label="password"
+          id="password"
+          type="password"
+          error={hasPasswordError ? "Password is not valid" : ""}
+          name="password"
+          onChange={handlePasswordChange}
+          onBlur={handlePasswordBlur}
+          value={passwordValue}
+        />
       </div>
 
       <p className="form-actions">
         <button className="button button-flat">Reset</button>
-        <button className="button">Login</button>
+        <button onClick={handleSubmit} className="button">
+          Login
+        </button>
       </p>
     </form>
   );

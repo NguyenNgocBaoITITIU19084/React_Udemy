@@ -14,12 +14,10 @@ const DUMMY_CART = {
 };
 
 app.post('/cart', (req, res) => {
-  const { title, price, quantity } = req.body;
+  DUMMY_CART.items = req.body.items;
+  DUMMY_CART.totalItems = req.body.totalItems;
 
-  const id = new Date();
-
-  DUMMY_CART.items.push({ id, title, price, quantity });
-  DUMMY_CART.totalItems++;
+  console.log('DUMMY_CART:::', DUMMY_CART);
 
   return res.status(201).json({ status: true, data: DUMMY_CART });
 });

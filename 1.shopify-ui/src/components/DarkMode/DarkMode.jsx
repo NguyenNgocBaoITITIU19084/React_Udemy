@@ -1,7 +1,9 @@
+import { useState } from 'react';
+
 import { FaCloudMoon } from 'react-icons/fa';
+import { CiCloudSun } from 'react-icons/ci';
 
 import Button from '../button/Button';
-import { useState } from 'react';
 
 const DarkMode = () => {
   const [theme, setTheme] = useState('light');
@@ -22,7 +24,7 @@ const DarkMode = () => {
     <div>
       <Button onClick={handleDarkMode}>
         <span className='text-2xl'>
-          <FaCloudMoon />
+          {theme === 'light' ? <FaCloudMoon /> : <CiCloudSun />}
         </span>
       </Button>
     </div>

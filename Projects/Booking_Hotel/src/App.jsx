@@ -1,7 +1,18 @@
-import { BrowserRouter, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Route, Link, Routes } from 'react-router-dom';
+import Home from './pages/Home/Home';
+import List from './pages/List/List';
+import Hotel from './pages/Hotel/Hotel';
 
 const App = () => {
-  return <div>APP</div>;
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path='/home' element={<Home />} />
+        <Route path='/hotels' element={<List />} />
+        <Route path='/hotels/:id' element={<Hotel />} />
+      </Routes>
+    </BrowserRouter>
+  );
 };
 
 export default App;

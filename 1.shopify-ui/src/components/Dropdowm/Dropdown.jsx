@@ -1,9 +1,10 @@
 const Dropdown = ({ children, className, data, ...props }) => {
   let baseCss = 'hover:text-primary duration-200 relative ';
+
   return (
     <div {...props} className={className ? `${baseCss} ${className}` : baseCss}>
       {children}
-      <ul className='w-[200px] bg-white absolute top-1/2 -left-4 translate-y-3 hidden group-hover:block shadow-md rounded-md'>
+      <ul className='z-50 w-[200px] bg-white absolute top-1/2 -left-4 translate-y-3 hidden group-hover:block shadow-md rounded-md'>
         {data.map((item) => (
           <li
             key={item.name}

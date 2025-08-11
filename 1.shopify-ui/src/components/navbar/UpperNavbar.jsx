@@ -7,7 +7,7 @@ import Button from '../button/Button';
 const UpperNavbar = () => {
   return (
     <nav className='shadow-md bg-white dark:bg-slate-900 dark:text-white duration-300 relative z-40'>
-      <div className=' flex items-center justify-between bg-primary/40 py-2 px-4'>
+      <div className='container flex items-center justify-between bg-primary/40 py-2 px-4'>
         {/* logo */}
         <div className=''>
           <a

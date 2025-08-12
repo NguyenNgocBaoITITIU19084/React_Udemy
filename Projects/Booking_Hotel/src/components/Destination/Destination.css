@@ -1,0 +1,78 @@
+.d-container {
+  width: 100%;
+  max-width: 1024px;
+}
+
+.d-list {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.d-item-type {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.star {
+  color: yellow;
+}
+
+.like {
+  color: blue;
+}
+
+.d-item {
+  margin-top: 15px;
+  background-color: white;
+  height: 300px;
+  border-radius: 15px;
+  over-flow: hidden;
+  box-shadow: 1px 10px 30px 3px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: 1px 10px 30px 3px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 1px 10px 30px 3px rgba(0, 0, 0, 0.75);
+}
+
+.d-item-image {
+  width: 100%;
+  object-fit: cover;
+  over-flow: hidden;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+.d-item-content {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.name {
+  font-weight: bold;
+  font-size: 17px;
+}
+
+.reviews {
+  margin-top: 5px;
+  display: flex;
+  gap: 10px;
+  align-item: center;
+}
+
+.rating {
+  background-color: #003b95;
+  display: flex;
+  padding: 5px 5px 0px 5px;
+  border-radius: 5px;
+  color: white;
+}
+
+.reviews > p {
+  display: flex;
+  flex-direction: column;
+}
+.reviews > p > span {
+  font-size: 14px;
+}

@@ -18,7 +18,7 @@
 .email-input > input {
   padding: 10px 15px;
   margin-right: 15px;
-  max-with: 200px;
+  max-width: 200px;
   width: 200px;
   border: none;
   outline: none;

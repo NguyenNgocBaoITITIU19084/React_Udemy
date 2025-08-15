@@ -58,7 +58,7 @@
   margin-top: 5px;
   display: flex;
   gap: 10px;
-  align-item: center;
+  align-items: center;
 }
 
 .rating {

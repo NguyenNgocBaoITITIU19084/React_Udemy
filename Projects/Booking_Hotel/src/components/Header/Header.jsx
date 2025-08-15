@@ -13,8 +13,11 @@ import { FaCalendarAlt } from 'react-icons/fa';
 import { GrGroup } from 'react-icons/gr';
 
 import './Header.css';
+import { useNavigate } from 'react-router-dom';
 
 const Header = ({ style }) => {
+  const navigate = useNavigate();
+  const [destination, setDestination] = useState('');
   const [openPicker, setOpenPicker] = useState(false);
   const [openOption, setOpenOption] = useState(false);
   const [date, setDate] = useState([
@@ -53,6 +56,10 @@ const Header = ({ style }) => {
             : prevState[identifier]--,
       };
     });
+  }
+
+  function handleSearchButton() {
+    navigate('/hotels', { state: { destination, date, options } });
   }
 
   return (
@@ -105,6 +112,7 @@ const Header = ({ style }) => {
                   id='search-place'
                   placeholder='search your destination'
                   className='header-search-input'
+                  onChange={(e) => setDestination(e.target.value)}
                 />
               </div>
               <div className='header-search-item'>
@@ -120,6 +128,7 @@ const Header = ({ style }) => {
                     onChange={(item) => setDate([item.selection])}
                     moveRangeOnFirstSelection={false}
                     ranges={date}
+                    minDate={new Date()}
                   />
                 ) : null}
               </div>
@@ -199,7 +208,9 @@ const Header = ({ style }) => {
                   </div>
                 ) : null}
               </div>
-              <button className='header-button'>Search</button>
+              <button className='header-button' onClick={handleSearchButton}>
+                Search
+              </button>
             </div>
           </>
         )}

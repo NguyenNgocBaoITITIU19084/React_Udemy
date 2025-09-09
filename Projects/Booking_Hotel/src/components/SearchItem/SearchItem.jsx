@@ -24,7 +24,17 @@ const SearchItem = () => {
           Lorem ipsum dolor sit amet consectetur ic!
         </span>
       </div>
-      <div className='search-item-detail'>detail</div>
+      <div className='search-item-detail'>
+        <div className='search-item-rating'>
+          <span>Excellent</span>
+          <button>8,9</button>
+        </div>
+        <div className='search-detail'>
+          <span className='price'>$123</span>
+          <span>Include taxes and Fee</span>
+          <button>View More</button>
+        </div>
+      </div>
     </div>
   );
 };

@@ -60,4 +60,49 @@
 
 .search-item-detail {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.search-item-rating {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.search-item-rating > span {
+  font-weight: bold;
+  font-size: 17px;
+}
+
+.search-item-rating > button {
+  padding: 5px;
+  background-color: #0071c2;
+  border: none;
+  color: white;
+}
+
+.search-detail {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+
+  text-align: right;
+}
+
+.price {
+  font-weight: bold;
+}
+
+.search-detail > button {
+  border: none;
+  background-color: #0071c2;
+  padding: 10px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 5px;
 }
